@@ -1,32 +1,31 @@
-import { isWebp, headerFixed } from './modules'
-/* Раскомментировать для использования */
-// import { MousePRLX } from './libs/parallaxMouse'
+/* Задание на урок:
 
-/* Раскомментировать для использования */
-// import Swiper, { Navigation, Pagination } from 'swiper'
+1) У нас уже есть рабочее приложение, состоящее из отдельных функций. Представьте, что
+перед вами стоит задача переписать его так, чтобы все функции стали методами объекта personalMovieDB
+Такое случается в реальных продуктах при смене технологий или подхода к архитектуре программы
 
-// Проверка браузера на поддерку .webp изображений ====================================================================================================================================================
-isWebp()
-// ====================================================================================================================================================
+2) Создать метод toggleVisibleMyDB, который при вызове будет проверять свойство privat. Если оно false - он
+переключает его в true, если true - переключает в false. Протестировать вместе с showMyDB.
 
-// Паралакс мышей ====================================================================================================================================================
-// const mousePrlx = new MousePRLX({})
-// ====================================================================================================================================================
+3) В методе writeYourGenres запретить пользователю нажать кнопку "отмена" или оставлять пустую строку. 
+Если он это сделал - возвращать его к этому же вопросу. После того, как все жанры введены - 
+при помощи метода forEach вывести в консоль сообщения в таком виде:
+"Любимый жанр #(номер по порядку, начиная с 1) - это (название из массива)"*/
 
-// Фиксированный header ====================================================================================================================================================
-// headerFixed()
-// ====================================================================================================================================================
-
+'use strict';
 
 let numberOfFilms;
 
 function start() {
-    numberOfFilms = +prompt("Сколько фильмов вы уже просмотрели?", '');
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+
     while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-        numberOfFilms = +prompt("Сколько фильмов вы уже просмотрели?", '');
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
     }
 }
-start();
+
+// start();
+
 const personalMovieDB = {
     count: numberOfFilms,
     movies: {},
@@ -34,45 +33,47 @@ const personalMovieDB = {
     genres: [],
     privat: false
 };
+
+
 function rememberMyFilms() {
     for (let i = 0; i < 2; i++) {
         const a = prompt('Один из последних просмотренных фильмов?', ''),
             b = prompt('На сколько оцените его?', '');
+
         if (a != null && b != null && a != '' && b != '' && a.length < 50) {
             personalMovieDB.movies[a] = b;
+            console.log('done');
         } else {
+            console.log('error');
             i--;
         }
-
     }
 }
-rememberMyFilms();
+
+// rememberMyFilms();
 
 function detectPersonalLevel() {
     if (personalMovieDB.count < 10) {
-        console.log("просмотрено мало фильмов");
-    } else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
-        console.log("вы классический зритель");
-    } else if (personalMovieDB.count > 10) {
+        console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+        console.log("Вы классический зритель");
+    } else if (personalMovieDB.count >= 30) {
         console.log("Вы киноман");
     } else {
         console.log("Произошла ошибка");
     }
 }
 
-detectPersonalLevel();
+// detectPersonalLevel();
 
-function showMyDB(hidden) {
-    if (!hidden) {
-        console.log(personalMovieDB);
-    }
-}
-showMyDB(personalMovieDB.privat);
+
+
+// showMyDB(personalMovieDB.privat);
 
 function writeYourGenres() {
-    for (i = 1; i <= 3; i++) {
-        const genre = promt("Ваш любимый жанр под номером")
+    for (let i = 1; i <= 3; i++) {
+        personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
     }
 }
-writeYourGenres();
 
+// writeYourGenres();
