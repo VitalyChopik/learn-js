@@ -1,27 +1,21 @@
-const btns = document.querySelectorAll('button');
-
-// btn.onclick = function () {
-//   alert('2131232');
-// }
-
-let i = 0;
-const deleteElement = (e) => {
-  alert('2131232');
-  i++;
-  if (i = 1) {
-    btn.removeEventListener('click', deleteElement);
+function pow(x, n) {
+  let result = 1;
+  for (i = 0; i < n; i++) {
+    result *= x;
   }
-};
+  return result;
+}
 
 
-btns.forEach(btn => {
-  btn.addEventListener('click', deleteElement);
-});
+function pow(x, n) {
+  if (n === 1) {
+    return x;
+  } else {
+    return x * pow(x, n - 1);
+  }
+}
+
+pow(2, 5)
 
 
-const link = document.querySelector('a');
 
-link.addEventListener('click', (event) => {
-  event.preventDefault();
-  console.log(event.target);
-});
